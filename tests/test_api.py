@@ -5,12 +5,11 @@ import uncurl
 
 def test_basic_get():
     uncurl.parse("curl 'https://pypi.python.org/pypi/uncurl'").should.equal(
-        """requests.get("https://pypi.python.org/pypi/uncurl",
-    headers={},
-    cookies={},
-)"""
+            """requests.get("https://pypi.python.org/pypi/uncurl",
+        headers={},
+        cookies={},
+    )"""
     )
-
 
 def test_basic_headers():
     uncurl.parse("curl 'https://pypi.python.org/pypi/uncurl' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: en-US,en;q=0.8'").should.equal(
