@@ -28,7 +28,7 @@ The underlying API:
 ```python
 import uncurl
 
-print uncurl.parse("curl 'https://pypi.python.org/pypi/uncurl' -H 'Accept-Encoding: gzip,deflate,sdch'")
+print uncurl.parse(request-curl)
 ```
 
 prints the string

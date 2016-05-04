@@ -1,4 +1,4 @@
-uncurl.egg-info/*
+runcurl.egg-info/*
 dist/*
 .tox
 .coverage
