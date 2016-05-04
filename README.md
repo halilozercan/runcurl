@@ -1,3 +1,17 @@
+# Runcurl - Executable uncurl
+
+Uncurl is a great tool to convert cURL commands to python request strings. However, it lacks a crucial feature. It cannot execute cURL commands directly.
+
+With runcurl, you can directly execute cURL commands and get the resulting requests object which you can call text, json, status_code...
+
+```
+import runcurl
+
+req = runcurl.execute("curl 'https://www.google.com'")
+if req.status_code == 200:
+    print req.text
+```
+
 # Uncurl - Converting curl requests to python-requests
 
 [![Build Status](https://travis-ci.org/spulec/uncurl.png?branch=master)](https://travis-ci.org/spulec/uncurl)
