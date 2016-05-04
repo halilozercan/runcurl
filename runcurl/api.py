@@ -14,7 +14,7 @@ parser.add_argument('-H', '--header', action='append', default=[])
 parser.add_argument('--compressed', action='store_true')
 
 
-def execute(curl_command):
+def analyze(curl_command):
     method = "get"
 
     tokens = shlex.split(curl_command)
@@ -50,51 +50,33 @@ def execute(curl_command):
         else:
             quoted_headers[header_key] = header_value.strip()
 
-    return getattr(requests, method)(parsed_args.url, data = data_token, headers=quoted_headers, cookies=cookie_dict)
+    results = {"method" : method,
+               "url" : parsed_args.url,
+               "data_token" : data_token,
+               "headers" : quoted_headers,
+               "cookies" : cookie_dict,
+               "base_indent" : base_indent}
+    return results
+
+
+def execute(curl_command):
+    results = analyze(curl_command)
+
+    return getattr(requests, results['method'])(results['url'],
+                                                data=results['data_token'],
+                                                headers=results['headers'],
+                                                cookies=results['cookies'])
 
 
 def parse(curl_command):
-    method = "get"
-
-    tokens = shlex.split(curl_command)
-    parsed_args = parser.parse_args(tokens)
-
-    base_indent = " " * 4
-    data_token = ''
-    post_data = parsed_args.data or parsed_args.data_binary
-    if post_data:
-        method = 'post'
-        try:
-            post_data_json = json.loads(post_data)
-        except ValueError:
-            post_data_json = None
-
-        # If we found JSON and it is a dict, pull it apart. Otherwise, just leave as a string
-        if post_data_json and isinstance(post_data_json, dict):
-            post_data = dict_to_pretty_string(post_data_json)
-        else:
-            post_data = "'{}',\n".format(post_data)
-
-        data_token = '{}data={}'.format(base_indent, post_data)
-
-    cookie_dict = OrderedDict()
-    quoted_headers = OrderedDict()
-    for curl_header in parsed_args.header:
-        header_key, header_value = curl_header.split(":", 1)
-
-        if header_key.lower() == 'cookie':
-            cookie = Cookie.SimpleCookie(header_value)
-            for key in cookie:
-                cookie_dict[key] = cookie[key].value
-        else:
-            quoted_headers[header_key] = header_value.strip()
+    results = analyze(curl_command)
 
     result = """requests.{method}("{url}",\n{data_token}{headers_token}{cookies_token})""".format(
-        method=method,
-        url=parsed_args.url,
-        data_token=data_token,
-        headers_token="{}headers={}".format(base_indent, dict_to_pretty_string(quoted_headers)),
-        cookies_token="{}cookies={}".format(base_indent, dict_to_pretty_string(cookie_dict)),
+        method=results['method'],
+        url=results['url'],
+        data_token=results['data_token'],
+        headers_token="{}headers={}".format(results['base_indent'], dict_to_pretty_string(results['headers'])),
+        cookies_token="{}cookies={}".format(results['base_indent'], dict_to_pretty_string(results['cookies'])),
     )
     return result
 
