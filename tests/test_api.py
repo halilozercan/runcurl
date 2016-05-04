@@ -111,4 +111,4 @@ def test_parse_curl_with_binary_data():
 
 
 def test_execute_get():
-    print runcurl.execute("curl 'https://pypi.python.org/pypi/rruncurl'").status_code == 200
+    print runcurl.execute("curl 'https://pypi.python.org/pypi/runcurl'").status_code == 200

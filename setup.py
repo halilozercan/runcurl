@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+from distutils.core import setup
+from setuptools import find_packages
 
 setup(
     name='runcurl',
-    version='0.0.1',
+    version='0.4',
     description='A fork of uncurl which includes an execute method to run curl directly.',
     author='Steve Pulec, Halil Ozercan',
     author_email='halilozercan@gmail',

@@ -1,5 +1,8 @@
-coverage
-mock
-nose
-sure<1.2.4
-requests
+coverage==4.0.3
+funcsigs==1.0.2
+mock==2.0.0
+nose==1.3.7
+pbr==1.9.1
+requests==2.10.0
+six==1.10.0
+sure==1.2.3
