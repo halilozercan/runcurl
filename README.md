@@ -12,16 +12,22 @@ if req.status_code == 200:
     print req.text
 ```
 
-# Uncurl - Converting curl requests to python-requests
+## Install
+
+```console
+$ pip install runcurl
+```
+
+## Fork of Uncurl - Converting curl requests to python-requests
 
 [![Build Status](https://travis-ci.org/spulec/uncurl.png?branch=master)](https://travis-ci.org/spulec/uncurl)
 
-# In a nutshell
+### In a nutshell
 
 Uncurl is a library that allows you to convert curl requests into python code that uses [Requests](github.com/kennethreitz/requests). Since the Chrome network inspector has a nifty "Copy as cURL", this tool is useful for recreating browser requests in python.
 
 
-## Example
+#### Example
 
 ```bash
 $ uncurl "curl 'https://pypi.python.org/pypi/uncurl' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Cache-Control: max-age=0' -H 'Cookie: foo=bar;' -H 'Connection: keep-alive' --compressed"
@@ -62,5 +68,5 @@ pbpaste | uncurl
 ## Install
 
 ```console
-$ pip install uncurl
+$ pip install runcurl
 ```
