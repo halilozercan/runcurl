@@ -1,6 +1,6 @@
 import argparse
 from collections import OrderedDict
-import Cookie
+from six.moves import http_cookies as Cookie
 import json
 import shlex
 import requests
